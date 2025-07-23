@@ -77,6 +77,7 @@ export const highlights: EnergyHighlight[] = [
 
 // Current time and message
 export const currentTime = `${todayISO}T10:00:00Z`;
+
 export const customMessage: TimelineMessage = {
   title: "Your energy level is high right now as you are in your morning peak.",
   description:

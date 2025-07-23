@@ -124,8 +124,8 @@ const EnergyTimeline = () => {
     // === 2. Time Markers (y-axis on left) ===
     const yAxis = d3
       .axisLeft(yScale)
-      .ticks(d3.timeHour.every(2))
-      .tickFormat((d) => d3.timeFormat("%-I:%M %p")(d as Date));
+      .ticks(d3.timeHour.every(1))
+      .tickFormat((d) => d3.utcFormat("%-I:%M %p")(d as Date));
     chart.append("g").call(yAxis);
 
     // === 6. Current Time Indicator ===
@@ -153,7 +153,7 @@ const EnergyTimeline = () => {
 
     // === 7. Custom Message at Current Time ===
     const messageX = width / 2;
-    const messageY = yCurrent - 70; // above the current time
+    const messageY = yCurrent - 70;
 
     const messageGroup = chart
       .append("g")
