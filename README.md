@@ -23,7 +23,6 @@ A **data.ts** file to store the energy data, highlight labels, current time and 
 ## Installation
 
 Clone repository using https://github.com/Jessica-Agorye/Energy-Timeline.git
-or copy surce code
 
 install dependencies using **npm install**
 
