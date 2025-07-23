@@ -16,7 +16,7 @@ const EnergyTimeline = () => {
       date: new Date(d.time),
     }));
 
-    const margin = { top: 20, right: 80, bottom: 40, left: 80 };
+    const margin = { top: 40, right: 80, bottom: 40, left: 80 };
     const width = 600 - margin.left - margin.right;
     const height = 1400 - margin.top - margin.bottom;
 
@@ -41,31 +41,31 @@ const EnergyTimeline = () => {
         label: "Late Night",
         start: `${day}T00:00:00Z`,
         end: `${day}T06:00:00Z`,
-        color: "rgba(1, 0, 72, 0.25)", // Dark Blue (based on #010048)
+        color: "rgba(1, 0, 72, 0.25)",
       },
       {
         label: "Morning",
         start: `${day}T06:00:00Z`,
         end: `${day}T12:00:00Z`,
-        color: "rgba(101, 67, 33, 0.25)", // Dark Brown
+        color: "rgba(101, 67, 33, 0.25)",
       },
       {
         label: "Afternoon",
         start: `${day}T12:00:00Z`,
         end: `${day}T18:00:00Z`,
-        color: "rgba(75, 0, 130, 0.25)", // Dark Purple (based on Indigo)
+        color: "rgba(75, 0, 130, 0.25)",
       },
       {
         label: "Evening",
         start: `${day}T18:00:00Z`,
         end: `${day}T21:00:00Z`,
-        color: "rgba(139, 0, 70, 0.25)", // Dark Pink (Magenta base)
+        color: "rgba(139, 0, 70, 0.25)",
       },
       {
         label: "Night",
         start: `${day}T21:00:00Z`,
         end: `${day}T23:59:59Z`,
-        color: "rgba(60, 0, 80, 0.25)", // Muted Dark Purple for night
+        color: "rgba(60, 0, 80, 0.25)",
       },
     ];
 
@@ -195,16 +195,50 @@ const EnergyTimeline = () => {
       const y = yScale(new Date(h.time));
       const level = parsedData.find((d) => d.time === h.time)?.level || 0.5;
       const x = xScale(level);
+      const fontSize = 11;
+      const paddingX = 6;
+      const paddingY = 4;
 
-      chart
+      // Temporary text to measure width
+      const tempText = chart
         .append("text")
-        .attr("x", x)
-        .attr("y", y - 8) // slightly above the point
         .text(h.label)
-        .attr("font-size", 11)
+        .attr("font-size", fontSize)
+        .attr("visibility", "hidden");
+
+      const tempNode = tempText.node();
+      if (!tempNode) return;
+
+      const bbox = tempNode.getBBox();
+      const textWidth = bbox.width;
+      const textHeight = bbox.height;
+
+      tempText.remove();
+
+      const group = chart
+        .append("g")
+        .attr("transform", `translate(${x}, ${y - 12})`);
+
+      // Background rectangle
+      group
+        .append("rect")
+        .attr("x", -textWidth / 2 - paddingX)
+        .attr("y", -textHeight / 2 - paddingY)
+        .attr("width", textWidth + paddingX * 2)
+        .attr("height", textHeight + paddingY * 2)
+        .attr("rx", 4)
+        .attr("fill", "white")
+        .attr("stroke", h.color)
+        .attr("stroke-width", 1.2);
+
+      // Foreground text
+      group
+        .append("text")
+        .text(h.label)
+        .attr("font-size", fontSize)
         .attr("fill", h.color)
         .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "bottom");
+        .attr("alignment-baseline", "middle");
     });
 
     // === 1. X-axis (hidden, but defined for layout) ===

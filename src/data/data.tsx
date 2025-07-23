@@ -1,6 +1,7 @@
 // Get today's date for sample data
 const today = new Date();
 const todayISO = today.toISOString().split("T")[0]; // YYYY-MM-DD
+
 interface EnergyPoint {
   id: number;
   time: string; // e.g. "14:00"
