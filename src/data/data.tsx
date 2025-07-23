@@ -1,11 +1,11 @@
 // Get today's date for sample data
 const today = new Date();
-const todayISO = today.toISOString().split("T")[0]; // YYYY-MM-DD
+const todayISO = today.toISOString().split("T")[0];
 
 interface EnergyPoint {
   id: number;
-  time: string; // e.g. "14:00"
-  level: number; // energy level between 0 and 1
+  time: string;
+  level: number;
 }
 
 interface EnergyHighlight {

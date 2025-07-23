@@ -21,3 +21,14 @@ A components folder that contains **EnergyTimeLine.tsx** file. This is the main 
 A **data.ts** file to store the energy data, highlight labels, current time and custom message.
 
 ## Installation
+
+Clone repository using https://github.com/Jessica-Agorye/Energy-Timeline.git
+or copy surce code
+
+install dependencies using **npm install**
+
+Start the development server using **npm run dev**
+
+## Author
+
+Jessica Agorye - []

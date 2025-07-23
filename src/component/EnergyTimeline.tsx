@@ -21,7 +21,7 @@ const EnergyTimeline = () => {
     const height = 1400 - margin.top - margin.bottom;
 
     const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove();
+    svg.selectAll("*").remove(); // This is so svg clears everytime it is loaded and there's no duplication.
 
     const chart = svg
       .append("g")
@@ -110,7 +110,7 @@ const EnergyTimeline = () => {
         .datum(segment)
         .attr("fill", "none")
         .attr("stroke", color)
-        .attr("stroke-width", 6)
+        .attr("stroke-width", 10)
         .attr(
           "d",
           d3
@@ -248,7 +248,7 @@ const EnergyTimeline = () => {
 
   return (
     <div className="overflow-y-auto max-h-screen px-4">
-      <p className="text-2xl mb-4">Energy Rhythm</p>
+      <p className="text-2xl mb-4 font-bold">Energy Rhythm</p>
       <svg ref={svgRef} width={700} height={1500} />
     </div>
   );
