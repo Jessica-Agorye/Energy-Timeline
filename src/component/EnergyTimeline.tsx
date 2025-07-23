@@ -34,7 +34,7 @@ const EnergyTimeline = () => {
       .domain(d3.extent(parsedData, (d) => d.date) as [Date, Date])
       .range([0, height]);
 
-    // === 4. Background Time Blocks ===
+    //  Background Time Blocks
     const day = parsedData[0].date.toISOString().split("T")[0];
     const timeBlocks = [
       {
@@ -81,7 +81,7 @@ const EnergyTimeline = () => {
         .attr("fill", block.color);
     });
 
-    // === 5. Time Block Labels ===
+    //  Time Block Labels
     timeBlocks.forEach((block) => {
       const yMid =
         (yScale(new Date(block.start)) + yScale(new Date(block.end))) / 2;
@@ -95,7 +95,7 @@ const EnergyTimeline = () => {
         .attr("alignment-baseline", "middle");
     });
 
-    // === 3. Colored Segmented Curve ===
+    // Colored Segmented Curve
     for (let i = 0; i < parsedData.length - 1; i++) {
       const segment = [parsedData[i], parsedData[i + 1]];
       const color =
@@ -121,14 +121,14 @@ const EnergyTimeline = () => {
         );
     }
 
-    // === 2. Time Markers (y-axis on left) ===
+    //  Time Markers (y-axis on left)
     const yAxis = d3
       .axisLeft(yScale)
       .ticks(d3.timeHour.every(1))
       .tickFormat((d) => d3.utcFormat("%-I:%M %p")(d as Date));
     chart.append("g").call(yAxis);
 
-    // === 6. Current Time Indicator ===
+    //  Current Time Indicator
     const current = new Date(currentTime);
     const yCurrent = yScale(current);
 
@@ -151,7 +151,7 @@ const EnergyTimeline = () => {
       .attr("r", 5)
       .attr("fill", "white");
 
-    // === 7. Custom Message at Current Time ===
+    // Custom Message at Current Time
     const messageX = width / 2;
     const messageY = yCurrent - 70;
 
@@ -190,7 +190,7 @@ const EnergyTimeline = () => {
       .attr("fill", "#555")
       .text(customMessage.description);
 
-    // === 5. Highlight Labels (from highlights[]) ===
+    // Highlight Labels (from highlights[])
     highlights.forEach((h) => {
       const y = yScale(new Date(h.time));
       const level = parsedData.find((d) => d.time === h.time)?.level || 0.5;
@@ -241,7 +241,7 @@ const EnergyTimeline = () => {
         .attr("alignment-baseline", "middle");
     });
 
-    // === 1. X-axis (hidden, but defined for layout) ===
+    // X-axis (hidden, but defined for layout)
     const xAxis = d3.axisBottom(xScale).ticks(5).tickFormat(d3.format(".0%"));
     chart.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
   }, []);
